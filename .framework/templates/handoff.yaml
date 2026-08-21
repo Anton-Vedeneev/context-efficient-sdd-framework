@@ -1,0 +1,18 @@
+schema_version: 1
+handoff:
+  from_role: developer
+  to_role: reviewer
+  task_id: null
+  spec_ref: null
+  acceptance_criteria: []
+  implementation:
+    changed_files: []
+    diff_summary: null
+  verification:
+    command: "./scripts/verify.sh"
+    status: not_run
+    evidence: []
+  assumptions: []
+  unresolved_questions: []
+  risks: []
+  context_refs: []

@@ -1,0 +1,25 @@
+schema_version: 1
+human:
+  role: project_owner
+  expertise: {}
+  interaction:
+    challenge_assumptions: true
+    highlight_blind_spots: true
+    explain_unknown_domains: true
+    verbosity: concise
+  delegation:
+    known_domain: advisory
+    weak_domain: autonomous_with_review
+    unknown_domain: ask
+  authority:
+    architecture_irreversible: require_approval
+    security: require_approval
+    destructive_operations: require_approval
+    data_deletion: require_approval
+    scope_change: require_approval
+    requirement_acceptance: require_approval
+  uncertainty:
+    if_user_does_not_know:
+      strategy: use_best_practice
+      explain_choice: true
+      mark_as_assumption: true

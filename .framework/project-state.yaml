@@ -1,0 +1,7 @@
+schema_version: 1
+initialized: false
+human_profile_present: false
+adapter_selected: false
+project_type: null  # new | existing
+active_task: null
+context_mode: efficient

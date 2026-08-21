@@ -1,0 +1,24 @@
+schema_version: 1
+release:
+  id: null
+  date: null
+metrics_summary:
+  tokens_per_completed_task: null
+  iterations_per_accepted_task: null
+  time_to_accepted_task: null
+  first_pass_acceptance_rate: null
+  escaped_defects: null
+  reopened_tasks: null
+  acceptance_criteria_coverage: null
+  invalid_assumptions: null
+  missing_requirements_after_implementation: null
+  context_escalations: null
+observations: []
+actions:
+  backlog: []
+  adr: []
+  rule: []
+  test: []
+  framework_config: []
+  skill: []
+  dropped_as_noise: []

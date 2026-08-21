@@ -1,0 +1,62 @@
+schema_version: 1
+framework:
+  name: context-efficient-sdd
+  version: "0.1"
+  target_client: cursor
+  mission:
+    - reduce_context_entropy
+    - reduce_tokens_per_completed_task
+    - reduce_iterations_per_accepted_task
+    - reduce_escaped_defects
+
+workflow:
+  adapter: null  # openspec | superpowers
+  allow_multiple_adapters: false
+  roles: [architect, developer, reviewer, qa]
+  role_execution: single_agent_isolated_handoffs
+
+context:
+  mode: efficient
+  modes:
+    efficient:
+      token_budget_hint: 12000
+      retrieval: targeted
+    extended:
+      token_budget_hint: 40000
+      retrieval: expanded
+    unrestricted:
+      token_budget_hint: null
+      retrieval: exhaustive
+      warning_required: true
+  always: [active_task, acceptance_criteria, applicable_rules]
+  on_demand: [relevant_spec, related_adr, code_analogs, related_tests, architecture_fragment, dependency_contracts]
+  isolated_analysis: [logs, analytics, historical_incidents, large_reports, external_research]
+  prohibited_bulk_load: [full_backlog, all_adrs, entire_docs_tree, unrelated_specs, raw_large_logs]
+
+authority:
+  defaults:
+    architecture_irreversible: require_approval
+    security: require_approval
+    destructive_operations: require_approval
+    data_deletion: require_approval
+    scope_change: require_approval
+    requirement_acceptance: require_approval
+    framework_policy_change: require_approval
+
+uncertainty:
+  states: [FACT, INFERENCE, DECISION, UNKNOWN]
+  unknown_strategy: best_practice_if_allowed
+  best_practice_must_be_marked_as_assumption: true
+
+verification:
+  command: "./scripts/verify.sh"
+  required_before_review: true
+  required_before_release: true
+
+metrics:
+  collect: [tokens_per_completed_task, iterations_per_accepted_task, time_to_accepted_task, first_pass_acceptance_rate, escaped_defects, reopened_tasks, acceptance_criteria_coverage, invalid_assumptions, missing_requirements_after_implementation, context_escalations]
+
+reflection:
+  persist_raw_reflection: false
+  allowed_outputs: [backlog, adr, rule, test, framework_config, skill]
+  discard_non_actionable: true
