@@ -12,7 +12,7 @@ Architect → Developer → Reviewer → QA → Release Gate
 
 ## Release Gate
 
-1. Developer дописал в `.framework/metrics/ledger.yaml` строку принятой задачи и не сдвигал `active_task`, пока `./scripts/verify.sh` не прошёл.
+1. Developer дописал в `.local/metrics/ledger.yaml` строку принятой задачи и не сдвигал `active_task` в `.local/project-state.yaml`, пока `./scripts/verify.sh` не прошёл. В репозиторий фреймворка эта строка не попадает.
 2. Reviewer сверяет diff с acceptance criteria и не закрывает ревью без этой строки.
 3. QA не выдаёт «готово», если строки нет или verify.sh завершился с кодом 1.
 4. Рефлексия релиза сводит уже записанные строки. Новую строку на релизе не создаёт.

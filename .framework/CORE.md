@@ -82,7 +82,7 @@
 - active task;
 - acceptance criteria;
 - applicable rules;
-- одно напоминание: перед принятием задачи дописать строку в `.framework/metrics/ledger.yaml`. Историю журнала не загружать.
+- одно напоминание: перед принятием задачи дописать строку в `.local/metrics/ledger.yaml`. Историю журнала не загружать. Идентификатор задачи в отслеживаемые файлы фреймворка не писать.
 
 По требованию:
 - relevant spec fragment;
@@ -138,13 +138,17 @@ Architect → Developer → Reviewer → QA.
 
 После реализации запускать project verification entry point: `./scripts/verify.sh`.
 
-Скрипт обязан завершаться с кодом 1, если `active_task_since` в `.framework/project-state.yaml` новее `recorded_at` последней строки `.framework/metrics/ledger.yaml` или эта строка относится к другой задаче.
+Скрипт обязан завершаться с кодом 1, если `active_task_since` в `.local/project-state.yaml` новее `recorded_at` последней строки `.local/metrics/ledger.yaml` или эта строка относится к другой задаче. Тот же код, если в шаблонах `.framework/project-state.yaml` или `.framework/metrics/ledger.yaml` появился идентификатор задачи.
 
 Перед переходом Reviewer → QA должны быть доступны: diff, acceptance criteria, verification result, assumptions, unresolved questions и строка журнала метрик для этой задачи.
 
 ## Metrics closeout
 
-Принятая задача оставляет одну строку в `.framework/metrics/ledger.yaml`. Пока строка не записана и `./scripts/verify.sh` не проходит, `active_task` и `active_task_since` не сдвигаются.
+Принятая задача оставляет одну строку в `.local/metrics/ledger.yaml`. Пока строка не записана и `./scripts/verify.sh` не проходит, `active_task` и `active_task_since` в `.local/project-state.yaml` не сдвигаются.
+
+Репозиторий фреймворка универсальный. В локальном клоне метрики продукта остаются в `.local/` и не удаляются: журнал продолжается. В удалённый репозиторий попадают только отдельные коммиты, которые меняют работу фреймворка. Идентификатор задачи, журнал, выбранный adapter, `CONTEXT.md` и `PROJECT.md` конкретного продукта не коммитятся. Пустые шаблоны остаются в `.framework/project-state.yaml` и `.framework/metrics/ledger.yaml`.
+
+Правки файлов фреймворка в клоне продукта ведутся в локальной ветке без upstream. Эта ветка не пушится. Позже её можно перенести в общий репозиторий с продуктом.
 
 На релизе новая строка не пишется. Рефлексия только сводит уже записанные строки. Токены и время остаются пустыми, пока нет сборщика. Неизвестное число — `null`, не догадка.
 

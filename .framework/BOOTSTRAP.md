@@ -41,8 +41,10 @@ Framework может быть сложным внутри, но не долже�
 
 На основании ответов создать:
 - `.local/human-profile.yaml`;
+- `.local/project-state.yaml` по шаблону `.framework/project-state.yaml`;
 - `PROJECT.md`;
-- `CONTEXT.md`;
-- `.framework/project-state.yaml`.
+- `CONTEXT.md`.
+
+Идентификатор задачи и выбранный adapter пишутся только в `.local/`. Шаблоны `.framework/project-state.yaml` и `.framework/metrics/ledger.yaml` остаются пустыми и универсальными.
 
 Если проект существующий — сначала выполнить discovery plan, а не менять код.

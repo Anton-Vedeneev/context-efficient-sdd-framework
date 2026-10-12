@@ -1,0 +1,23 @@
+---
+description: Перед принятием задачи дописать строку локального журнала метрик
+alwaysApply: true
+---
+
+# Журнал метрик
+
+Перед тем как объявить задачу принятой, допиши одну строку в `.local/metrics/ledger.yaml`. Не меняй `active_task` и `active_task_since` в `.local/project-state.yaml`, пока `./scripts/verify.sh` не проходит. Историю журнала в контекст не загружай.
+
+Локальный клон хранит метрики продукта в `.local/` и не удаляет их. Дальнейшие правки файлов фреймворка в этом клоне идут в локальную ветку без upstream и не пушатся. В удалённый репозиторий уходят только отдельные коммиты, которые меняют работу фреймворка, без идентификаторов задач и артефактов продукта. Шаблоны `.framework/project-state.yaml` и `.framework/metrics/ledger.yaml` остаются пустыми.
+
+```yaml
+  - task: <task-id>
+    recorded_at: "YYYY-MM-DD"
+    status: accepted
+    verification_passed: true
+    acceptance_criteria_covered: 4
+    assumptions_invalidated: 0
+    missing_requirements_after_implementation: 0
+    context_escalated: false
+```
+
+Неизвестное число пиши как `null`. Токены и время не заполняй, пока нет сборщика.
