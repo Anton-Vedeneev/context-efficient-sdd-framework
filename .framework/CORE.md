@@ -81,7 +81,8 @@
 Всегда:
 - active task;
 - acceptance criteria;
-- applicable rules.
+- applicable rules;
+- одно напоминание: перед принятием задачи дописать строку в `.framework/metrics/ledger.yaml`. Историю журнала не загружать.
 
 По требованию:
 - relevant spec fragment;
@@ -137,10 +138,18 @@ Architect → Developer → Reviewer → QA.
 
 После реализации запускать project verification entry point: `./scripts/verify.sh`.
 
-Перед переходом Reviewer → QA должны быть доступны: diff, acceptance criteria, verification result, assumptions, unresolved questions.
+Скрипт обязан завершаться с кодом 1, если `active_task_since` в `.framework/project-state.yaml` новее `recorded_at` последней строки `.framework/metrics/ledger.yaml` или эта строка относится к другой задаче.
+
+Перед переходом Reviewer → QA должны быть доступны: diff, acceptance criteria, verification result, assumptions, unresolved questions и строка журнала метрик для этой задачи.
+
+## Metrics closeout
+
+Принятая задача оставляет одну строку в `.framework/metrics/ledger.yaml`. Пока строка не записана и `./scripts/verify.sh` не проходит, `active_task` и `active_task_since` не сдвигаются.
+
+На релизе новая строка не пишется. Рефлексия только сводит уже записанные строки. Токены и время остаются пустыми, пока нет сборщика. Неизвестное число — `null`, не догадка.
 
 ## Reflection
 
-Reflection — временный аналитический артефакт.
+Reflection — временный аналитический артефакт релиза.
 
-После релиза каждый полезный вывод должен быть преобразован в backlog, ADR, rule, test/check, framework config или skill/preprompt change. Если вывод не приводит к действию — удалить.
+Каждый полезный вывод сводки должен быть преобразован в backlog, ADR, rule, test/check, framework config или skill/preprompt change. Если вывод не приводит к действию — удалить.

@@ -67,17 +67,8 @@ Cursor работает **внутри структурированной сис
 
 ## Метрики
 
-После релиза анализируются как минимум:
+После каждой принятой задачи в `.framework/metrics/ledger.yaml` дописывается одна строка: проверка, покрытие критериев, опровергнутые допущения, требования, найденные после реализации, и был ли расширен контекст. Токены и время остаются пустыми, пока нет сборщика.
 
-- tokens / completed task;
-- iterations / accepted task;
-- time-to-accepted-task;
-- first-pass acceptance rate;
-- escaped defects;
-- reopened tasks;
-- acceptance criteria coverage;
-- invalid assumptions;
-- missing requirements found after implementation;
-- context escalations.
+`./scripts/verify.sh` завершается с ошибкой, если активная задача в `.framework/project-state.yaml` новее последней строки журнала.
 
-Результат рефлексии должен либо стать конкретным изменением системы, либо быть удалён.
+На релизе новые строки не пишутся. Рефлексия сводит журнал. Полезный вывод становится изменением системы: backlog, ADR, rule, test, config или skill. Вывод без действия удаляется.

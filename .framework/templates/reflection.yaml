@@ -1,3 +1,5 @@
+# Сводка релиза. По одной строке на задачу источник — .framework/metrics/ledger.yaml.
+# Токены и время заполняются только при наличии сборщика.
 schema_version: 1
 release:
   id: null
