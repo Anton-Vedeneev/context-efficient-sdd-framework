@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "scripts/record-turn.py"
+      }
+    ],
+    "stop": [
+      {
+        "command": "scripts/record-turn.py"
+      }
+    ]
+  }
+}
