@@ -28,7 +28,7 @@ context:
       token_budget_hint: null
       retrieval: exhaustive
       warning_required: true
-  always: [active_task, acceptance_criteria, applicable_rules, metrics_closeout_reminder]
+  always: [intake_checklist, active_task, acceptance_criteria, applicable_rules, metrics_closeout_reminder]
   on_demand: [relevant_spec, related_adr, code_analogs, related_tests, architecture_fragment, dependency_contracts]
   isolated_analysis: [logs, analytics, historical_incidents, large_reports, external_research]
   prohibited_bulk_load: [full_backlog, all_adrs, entire_docs_tree, unrelated_specs, raw_large_logs]
@@ -54,7 +54,9 @@ verification:
   required_before_release: true
 
 metrics:
-  cadence: per_accepted_task
+  cadence: per_turn
+  open_on: beforeSubmitPrompt
+  close_on: stop
   release: aggregate_ledger
   ledger: .local/metrics/ledger.yaml
   project_state: .local/project-state.yaml
@@ -64,6 +66,8 @@ metrics:
   required_before_review: true
   required_before_release: true
   closeout_reminder: "Перед принятием задачи допиши строку в .local/metrics/ledger.yaml и не сдвигай active_task в .local/project-state.yaml, пока ./scripts/verify.sh не проходит. Идентификатор задачи в репозиторий фреймворка не записывается."
+  collector: scripts/record-turn.py
+  turns: .local/metrics/turns.yaml
   collect_now: [verification_passed, acceptance_criteria_covered, assumptions_invalidated, missing_requirements_after_implementation, context_escalated]
   collect_when_instrumented: [tokens_per_completed_task, iterations_per_accepted_task, time_to_accepted_task]
   collect: [tokens_per_completed_task, iterations_per_accepted_task, time_to_accepted_task, first_pass_acceptance_rate, escaped_defects, reopened_tasks, acceptance_criteria_coverage, invalid_assumptions, missing_requirements_after_implementation, context_escalations]
